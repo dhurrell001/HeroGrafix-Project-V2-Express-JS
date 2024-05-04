@@ -51,7 +51,22 @@ h1 {
   display: block; /* Make the image a block-level element */
   margin: 0 auto; /* Center the image horizontally */
 }
-
+.formContainer {
+  padding-top: 5%;
+  max-width: 75%; /* Ensure the image does not exceed the container width */
+  display: block; /* Make the image a block-level element */
+  margin: 0 auto; /* Center the image horizontally */
+}
+.answerForm {
+  padding-top: 5%;
+  max-width: 75%;
+  display: block;
+  margin: 0 auto;
+}
+.answerForm textarea {
+  width: 100%; /* Set the width to 100% of the container */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}
 p {
   padding-top: 5%;
   padding-bottom: 5%;

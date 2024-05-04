@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Dancing+Script:wght@400..700&family=Kanit:ital,wght@1,300&family=Montserrat&family=Noto+Sans+Sharada&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div class="mainContainer">
+      <div class="subContainer">
+        <header>
+          <h1><%= title %></h1>
+        </header>
+        <hr />
+        <div class="navigation">
+          <nav>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <!-- Add more navigation links as needed -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="formContainer">
+        <form class="answerForm" submit="/users/answer_question" method="POST">
+          <label for="answer">Answer</label><br />
+          <textarea id="answer" name="answer" rows="8" cols="50"></textarea
+          ><br /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+      <div class="mainImageTop">
+        <img src="\images\AdobeStock_311664549_Preview.jpeg" />
+      </div>
+    </div>
+  </body>
+</html>
