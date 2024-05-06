@@ -14,7 +14,11 @@
     <div class="mainContainer">
       <%- include('\partials\\title.ejs') %>
       <div class="formContainer">
-        <form class="answerForm" action="/users/answer" method="POST">
+        <form
+          class="answerForm"
+          action="/users/answer/<%=questionId%>"
+          method="POST"
+        >
           <input type="hidden" name="questionId" value="<%= questionId %>" />
           <label for="answer"><%=question%></label><br /><br />
           <textarea id="answer" name="answer" rows="8" cols="50"></textarea

@@ -6,36 +6,32 @@ const { getUser, setCurrentUser } = require("./userFunctions"); // Import getUse
 router.use(setCurrentUser); //get user from middleware function in userFunctions
 
 router.get("/", function (req, res, next) {
-  const firstQuestionID = 1;
-  res.render("question.ejs", {
-    title: " Eternal Wellness",
-    question: "hi",
-    questionId: firstQuestionID,
-  });
+  const firstQuestionId = 1;
+  res.redirect(`/users/answer/${firstQuestionId}`);
 });
 
-router.get("/answer", (req, res) => {
-  // Execute a database query
-  console.log(req.currentUser.email);
-  pool.query("SELECT * FROM questions", (err, result) => {
-    if (err) {
-      console.error("Error executing query", err);
-      res.status(500).send("Internal Server Error");
-      return;
-    }
-    // Send the first question back to the client
-    if (result.rows.length > 0) {
-      console.log(result.rows[0].text);
-      res.render("question.ejs", {
-        title: " Eternal Wellness",
-        question: result.rows[1].text,
-        questionId: result.rows[1].id,
-      });
-    } else {
-      res.status(404).send("No questions found");
-    }
-  });
-});
+// router.get("/answer", (req, res) => {
+//   // Execute a database query
+//   console.log(req.currentUser.email);
+//   pool.query("SELECT * FROM questions", (err, result) => {
+//     if (err) {
+//       console.error("Error executing query", err);
+//       res.status(500).send("Internal Server Error");
+//       return;
+//     }
+//     // Send the first question back to the client
+//     if (result.rows.length > 0) {
+//       console.log(result.rows[0].text);
+//       res.render("question.ejs", {
+//         title: " Eternal Wellness",
+//         question: result.rows[1].text,
+//         questionId: result.rows[1].id,
+//       });
+//     } else {
+//       res.status(404).send("No questions found");
+//     }
+//   });
+// });
 
 router.get("/answer/:questionId", (req, res) => {
   const { questionId } = req.params; // extract the question ID from url
@@ -64,7 +60,7 @@ router.get("/answer/:questionId", (req, res) => {
     }
   );
 });
-router.post("/answer", (req, res) => {
+router.post("/answer/:questionId", (req, res) => {
   //extract details for request body
   const { answer, questionId } = req.body;
   // Convert questionId to an integer (assuming it's supposed to be an integer)
