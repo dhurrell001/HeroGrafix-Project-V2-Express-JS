@@ -12,24 +12,11 @@
   </head>
   <body>
     <div class="mainContainer">
-      <div class="subContainer">
-        <header>
-          <h1><%= title %></h1>
-        </header>
-        <hr />
-        <div class="navigation">
-          <nav>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <!-- Add more navigation links as needed -->
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <%- include('\partials\\title.ejs') %>
       <div class="formContainer">
-        <form class="answerForm" submit="/users/answer_question" method="POST">
-          <label for="answer">Answer</label><br />
+        <form class="answerForm" action="/users/answer" method="POST">
+          <input type="hidden" name="questionId" value="<%= questionId %>" />
+          <label for="answer"><%=question%></label><br /><br />
           <textarea id="answer" name="answer" rows="8" cols="50"></textarea
           ><br /><br />
           <input type="submit" value="Submit" />
