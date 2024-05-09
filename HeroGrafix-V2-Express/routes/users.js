@@ -10,29 +10,6 @@ router.get("/", function (req, res, next) {
   res.redirect(`/users/answer/${firstQuestionId}`);
 });
 
-// router.get("/answer", (req, res) => {
-//   // Execute a database query
-//   console.log(req.currentUser.email);
-//   pool.query("SELECT * FROM questions", (err, result) => {
-//     if (err) {
-//       console.error("Error executing query", err);
-//       res.status(500).send("Internal Server Error");
-//       return;
-//     }
-//     // Send the first question back to the client
-//     if (result.rows.length > 0) {
-//       console.log(result.rows[0].text);
-//       res.render("question.ejs", {
-//         title: " Eternal Wellness",
-//         question: result.rows[1].text,
-//         questionId: result.rows[1].id,
-//       });
-//     } else {
-//       res.status(404).send("No questions found");
-//     }
-//   });
-// });
-
 router.get("/answer/:questionId", (req, res) => {
   const { questionId } = req.params; // extract the question ID from url
   console.log("here");
@@ -60,10 +37,24 @@ router.get("/answer/:questionId", (req, res) => {
     }
   );
 });
+router.get("/results", (req, res) => {
+  res.render("answers.ejs", { title: "Eternal Wellness" });
+});
+router.get("/displayAnswers", (req, res) => {
+  pool.query("SELECT * FROM answers", (err, result) => {
+    if (err) {
+      console.error("Error retrieving answers", err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    console.log(result.rows);
+    res.redirect("/");
+  });
+});
 router.post("/answer/:questionId", (req, res) => {
   //extract details for request body
   const { answer, questionId } = req.body;
-  // Convert questionId to an integer (assuming it's supposed to be an integer)
+  // Convert questionId to an integer
   const questionIdInt = parseInt(questionId);
 
   // Check if the conversion was successful
@@ -83,10 +74,10 @@ router.post("/answer/:questionId", (req, res) => {
         return;
       }
       // Redirect to the next question page
-      const nextQuestionId = questionIdInt + 1; // Assuming the next question ID follows a sequential order
+      const nextQuestionId = questionIdInt + 1; // inrease id by one for next question
       if (nextQuestionId > 2) {
         console.log(nextQuestionId);
-        res.redirect("/");
+        res.redirect("/"); // if last questiion go back to home page
       } else {
         res.redirect(`/users/answer/${nextQuestionId}`);
       }

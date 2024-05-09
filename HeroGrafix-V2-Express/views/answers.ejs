@@ -13,21 +13,15 @@
   <body>
     <div class="mainContainer">
       <%- include('\partials\\title.ejs') %>
-      <div class="formContainer">
-        <form
-          class="answerForm"
-          action="/users/answer/<%=questionId%>"
-          method="POST"
-        >
-          <input type="hidden" name="questionId" value="<%= questionId %>" />
-          <label for="answer"><%=question%></label><br /><br />
-          <textarea id="answer" name="answer" rows="8" cols="50"></textarea
-          ><br /><br />
-          <input type="submit" value="Submit" />
-        </form>
+      <div class="mainImageTop">
+        <img src="\images\secondImage.jpg" width="100%" />
+      </div>
+
+      <div class="answerBox">
+        <h3>answers go here</h3>
       </div>
       <div class="mainImageTop">
-        <img id="mainImage" src="\images\AdobeStock_311664549_Preview.jpeg" />
+        <img src="\images\AdobeStock_311664549_Preview.jpeg" />
       </div>
     </div>
   </body>
