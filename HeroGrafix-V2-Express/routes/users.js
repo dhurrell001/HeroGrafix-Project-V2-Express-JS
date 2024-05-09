@@ -38,8 +38,30 @@ router.get("/answer/:questionId", (req, res) => {
   );
 });
 router.get("/results", (req, res) => {
-  res.render("answers.ejs", { title: "Eternal Wellness" });
+  // NOT MY WORK COPIED FROM CHATGPT, Query too complicated for my SQL skills!!
+  const query = `
+  SELECT a.question_id, a.text AS answer_text, a.created_at AS answer_timestamp, q.text AS question_text
+  FROM (
+      SELECT question_id, MAX(created_at) AS latest_answer_timestamp
+      FROM answers
+      GROUP BY question_id
+  ) AS latest_answers
+  INNER JOIN answers AS a ON a.question_id = latest_answers.question_id AND a.created_at = latest_answers.latest_answer_timestamp
+  INNER JOIN questions AS q ON q.id = a.question_id;
+  
+    `;
+
+  pool.query(query, (err, result) => {
+    if (err) {
+      console.error("Error retrieving answers", err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    console.log(result.rows);
+    res.render("answers.ejs", { title: "Eternal Wellness" });
+  });
 });
+
 router.get("/displayAnswers", (req, res) => {
   pool.query("SELECT * FROM answers", (err, result) => {
     if (err) {
